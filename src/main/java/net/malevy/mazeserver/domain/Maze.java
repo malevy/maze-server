@@ -2,11 +2,17 @@ package net.malevy.mazeserver.domain;
 
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 public class Maze {
     private Cell[][] cells; // height by width
     final private Size size;
+    private String id = UUID.randomUUID().toString();
+
+    final Map<String, Cell> ByIdIndex = new HashMap<>();
 
     public Maze(Size size) {
         Assert.notNull(size, "must provide the size of the maze");
@@ -14,6 +20,10 @@ public class Maze {
         initializeCells();
         setBorders();
         setNeighbors();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Cell getEntrance() {
@@ -37,6 +47,11 @@ public class Maze {
     public Cell getRandomCell() {
         final Random generator = new Random();
         return cells[generator.nextInt(this.size.getHeight())][generator.nextInt(this.size.getWidth())];
+    }
+
+    public Cell getCellById(String id) {
+        Assert.hasText(id, "must provide the id");
+        return this.ByIdIndex.get(id);
     }
 
     private void setBorders() {
@@ -63,7 +78,9 @@ public class Maze {
         this.cells = new Cell[this.size.getHeight()][this.size.getWidth()];
         for(int y = 0; y < this.size.getHeight(); y++) {
             for(int x = 0; x < this.size.getWidth(); x++) {
-                this.cells[y][x] = new Cell();
+                Cell cell = new Cell();
+                this.cells[y][x] = cell;
+                this.ByIdIndex.put(cell.getId(), cell);
             }
         }
     }

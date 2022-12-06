@@ -11,6 +11,10 @@ public class Cell {
     private Map<Directions, Cell> neighbors = new HashMap<>();
     private String id = UUID.randomUUID().toString();
 
+    public String getId() {
+        return id;
+    }
+
     public boolean hasBoarderToThe(Directions d) {
         return this.borders.contains(d);
     }
