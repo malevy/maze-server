@@ -4,11 +4,12 @@ import java.net.URI;
 
 public class CellDto extends LinkCollection {
     private URI href;
-    private String rel;
 
-    public CellDto(URI href, String rel) {
+    public CellDto(URI href) {
         this.href = href;
-        this.rel = rel;
     }
 
+    public URI getHref() {
+        return href;
+    }
 }
