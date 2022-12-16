@@ -1,16 +1,22 @@
 <template>
   <article>
     <div id="view">
-      <div id="leftPanel">
-        <h4>{{ panels[0].direction }}</h4>
+      <div class="panel" id="leftPanel">
+        <h4 class="sign" v-if="panels[0].direction">
+          {{ panels[0].direction }}
+        </h4>
         <img :src="panels[0].img" @click="go(panels[0].direction)" alt="" />
       </div>
-      <div id="middlePanel">
-        <h4>{{ panels[1].direction }}</h4>
+      <div class="panel" id="middlePanel">
+        <h4 class="sign" v-if="panels[1].direction">
+          {{ panels[1].direction }}
+        </h4>
         <img :src="panels[1].img" alt="" @click="go(panels[1].direction)" />
       </div>
-      <div id="rightPanel">
-        <h4>{{ panels[2].direction }}</h4>
+      <div class="panel" id="rightPanel">
+        <h4 class="sign" v-if="panels[2].direction">
+          {{ panels[2].direction }}
+        </h4>
         <img :src="panels[2].img" alt="" @click="go(panels[2].direction)" />
       </div>
     </div>
@@ -93,5 +99,35 @@ export default {
 
 h4 {
   height: 1rem;
+}
+
+.panel {
+  position: relative;
+}
+
+.sign {
+  position: absolute;
+  font-size: 1.5rem;
+  width: 6rem;
+  height: 2rem;
+  text-align: center;
+  background-color: aliceblue;
+}
+
+#leftPanel .sign {
+  top: 10.5rem;
+  left: 10rem;
+  transform: perspective(500px) scaleZ(2) rotateY(45deg);
+}
+
+#middlePanel .sign {
+  top: 12rem;
+  left: 6.5rem;
+}
+
+#rightPanel .sign {
+  top: 10.5rem;
+  left: 6rem;
+  transform: perspective(500px) scaleZ(2) rotateY(-45deg);
 }
 </style>
