@@ -62,6 +62,10 @@ export default {
     go(direction) {
       if (!direction) return;
 
+      if (direction === "exit") {
+        this.$router.push({ name: "escaped" });
+      }
+
       const link = store
         .getCurrentCell()
         .links.find((link) => link.rel === direction);

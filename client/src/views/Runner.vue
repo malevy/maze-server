@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="runner">
     <maze-runner></maze-runner>
   </section>
 </template>
@@ -14,4 +14,8 @@ export default {
 </script>
 
 <style scoped>
+#runner {
+  display: flex;
+  justify-content: center;
+}
 </style>

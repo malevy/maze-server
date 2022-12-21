@@ -48,4 +48,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.maze-list {
+  width: fit-content;
+}
+</style>
