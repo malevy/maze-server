@@ -8,7 +8,7 @@
         <tr v-for="maze in mazes" :key="maze.href">
           <td>
             <a href="#" @click.prevent="enterMaze(maze.href)">{{
-              maze.href
+              maze.name
             }}</a>
           </td>
         </tr>
@@ -48,5 +48,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

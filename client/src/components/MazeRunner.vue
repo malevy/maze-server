@@ -30,14 +30,14 @@ import store from "@/store";
 import directions from "@/services/Directions";
 
 const doorImages = [
-  require("../assets/left-wall-door.png"),
-  require("../assets/front-wall-door.png"),
-  require("../assets/right-wall-door.png"),
+  require("../assets/left-wall-door.jpg"),
+  require("../assets/front-wall-door.jpg"),
+  require("../assets/right-wall-door.jpg"),
 ];
 const wallImages = [
-  require("../assets/left-wall-blank.png"),
-  require("../assets/front-wall-blank.png"),
-  require("../assets/right-wall-blank.png"),
+  require("../assets/left-wall-blank.jpg"),
+  require("../assets/front-wall-blank.jpg"),
+  require("../assets/right-wall-blank.jpg"),
 ];
 
 export default {
@@ -93,6 +93,13 @@ export default {
 </script>
 
 <style scoped>
+article {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: fit-content;
+}
+
 #view {
   display: flex;
 }
@@ -115,19 +122,19 @@ h4 {
 }
 
 #leftPanel .sign {
-  top: 10.5rem;
-  left: 10rem;
-  transform: perspective(500px) scaleZ(2) rotateY(45deg);
+  top: 10rem;
+  left: 8rem;
+  transform: perspective(500px) scaleZ(2) rotateY(45deg) rotateZ(10deg);
 }
 
 #middlePanel .sign {
-  top: 12rem;
-  left: 6.5rem;
+  top: 11rem;
+  left: 6rem;
 }
 
 #rightPanel .sign {
   top: 10.5rem;
   left: 6rem;
-  transform: perspective(500px) scaleZ(2) rotateY(-45deg);
+  transform: perspective(500px) scaleZ(2) rotateY(-45deg) rotateZ(-10deg);
 }
 </style>
