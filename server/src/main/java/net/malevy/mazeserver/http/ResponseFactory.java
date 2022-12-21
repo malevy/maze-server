@@ -33,10 +33,15 @@ public abstract class ResponseFactory {
 
     public static MazeDto ForCell(String mazeId, Cell cell, UriComponentsBuilder uriBuilder) {
         final CellDto cellDto = new CellDto(buildCellUrl(mazeId, cell.getId(), uriBuilder));
-        for(Directions direction : cell.getAccessibleNeighbors().keySet()) {
-            Cell neighbor = cell.getNeighbors().get(direction);
-            LinkDto link = new LinkDto(buildCellUrl(mazeId, neighbor.getId(), uriBuilder), directionToRel(direction));
-            cellDto.addLink(link);
+        if (cell.hasExit()) {
+            LinkDto exit = new LinkDto("exit", null, Directions.EXIT.toString());
+            cellDto.addLink(exit);
+        } else {
+            for (Directions direction : cell.getAccessibleNeighbors().keySet()) {
+                Cell neighbor = cell.getNeighbors().get(direction);
+                LinkDto link = new LinkDto(buildCellUrl(mazeId, neighbor.getId(), uriBuilder), directionToRel(direction));
+                cellDto.addLink(link);
+            }
         }
         return new MazeDto(cellDto);
     }
