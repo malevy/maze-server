@@ -20,7 +20,9 @@
         <img :src="panels[2].img" alt="" @click="go(panels[2].direction)" />
       </div>
     </div>
-    <button id="back" @click="go(backwards.direction)">Go Back</button>
+    <button id="back" v-show="showBackButton" @click="go(backwards.direction)">
+      Go Back
+    </button>
   </article>
 </template>
 
@@ -44,6 +46,7 @@ export default {
   name: "maze-runner",
   data() {
     return {
+      showBackButton: true,
       panels: [
         {
           img: "",
@@ -72,6 +75,18 @@ export default {
       });
     },
     render(cell, comingFrom) {
+      if (this.hasExit(cell)) this.renderExit(cell);
+      else this.renderCell(cell, comingFrom);
+    },
+    renderExit() {
+      const newPanels = [];
+      newPanels.push({ img: wallImages[0], direction: "" });
+      newPanels.push({ img: doorImages[1], direction: "exit" });
+      newPanels.push({ img: wallImages[2], direction: "" });
+      this.showBackButton = false;
+      this.panels = newPanels;
+    },
+    renderCell(cell, comingFrom) {
       const compassPaths = directions.getDirectionsComingFrom(comingFrom);
       const newPanels = [];
       for (let i = 0; i < 3; i++) {
@@ -84,6 +99,9 @@ export default {
       }
       this.backwards.direction = directions.oppositeOf(comingFrom);
       this.panels = newPanels;
+    },
+    hasExit(cell) {
+      return cell.links.some((link) => link.rel === directions.EXIT);
     },
   },
   created() {
