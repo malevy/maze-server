@@ -13,9 +13,15 @@ public class Maze {
     private String id = UUID.randomUUID().toString();
 
     final Map<String, Cell> ByIdIndex = new HashMap<>();
+    private String name;
 
     public Maze(Size size) {
+        this(null, size);
+    }
+
+    public Maze(String name, Size size) {
         Assert.notNull(size, "must provide the size of the maze");
+        this.name = name != null ? name : String.format("%s x %s", size.getHeight(), size.getWidth());
         this.size = size;
         initializeCells();
         setBorders();
@@ -24,6 +30,14 @@ public class Maze {
 
     public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Cell getEntrance() {

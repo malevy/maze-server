@@ -3,12 +3,18 @@ package net.malevy.mazeserver.http.dtos;
 import java.net.URI;
 
 public class LinkDto {
-    private URI href;
-    private String rel;
+    private final URI href;
+    private final String rel;
+    private final String name;
 
-    public LinkDto(URI href, String rel) {
+    public LinkDto(String name, URI href, String rel) {
         this.href = href;
         this.rel = rel;
+        this.name = name;
+    }
+
+    public LinkDto(URI href, String rel) {
+        this(null, href, rel);
     }
 
     public URI getHref() {
@@ -17,5 +23,9 @@ public class LinkDto {
 
     public String getRel() {
         return rel;
+    }
+
+    public String getName() {
+        return name;
     }
 }

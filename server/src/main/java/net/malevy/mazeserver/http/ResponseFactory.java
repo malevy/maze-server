@@ -14,7 +14,7 @@ public abstract class ResponseFactory {
         UriComponentsBuilder builderForRoot = uriBuilder.pathSegment("mazes");
         CollectionDto collectionDto = new CollectionDto(builderForRoot.build().toUri());
         for (Maze maze : mazes) {
-            collectionDto.addLink(new LinkDto(buildMazeUrl(maze.getId(), uriBuilder), Constants.Rels.MAZE));
+            collectionDto.addLink(new LinkDto(maze.getName(), buildMazeUrl(maze.getId(), uriBuilder), Constants.Rels.MAZE));
         }
         return new MazeDto(collectionDto);
     }

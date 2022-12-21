@@ -14,7 +14,9 @@ public class MazeRepository {
     final private Map<String, Maze> mazes = new HashMap<>();
 
     public MazeRepository() {
-        final Maze maze = MazeBuilder.build(new Size(20,20));
+        Maze maze = MazeBuilder.build(new Size(20,20));
+        mazes.put(maze.getId(), maze);
+        maze = MazeBuilder.build(new Size(2,2));
         mazes.put(maze.getId(), maze);
     }
 
