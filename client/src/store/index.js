@@ -1,6 +1,7 @@
 
 let currentCell = {};
 let comingFrom = "";
+let mazeUrl = "";
 
 export default {
     getCurrentCell() {
@@ -14,6 +15,12 @@ export default {
     },
     setComingFrom(direction) {
         comingFrom = direction;
+    },
+    get currentMazeUrl() {
+        return mazeUrl;
+    },
+    set currentMazeUrl(url) {
+        mazeUrl = url;
     }
 
 };

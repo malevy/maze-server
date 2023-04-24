@@ -34,6 +34,7 @@ export default {
         .getStartUrl(url)
         .then((link) => mazeserver.goToCell(link.href))
         .then((cell) => {
+          store.currentMazeUrl = url;
           store.setCurrentCell(cell);
           store.setComingFrom("south");
           this.$router.push({ name: "runner" });
