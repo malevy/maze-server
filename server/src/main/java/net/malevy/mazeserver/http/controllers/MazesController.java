@@ -5,9 +5,11 @@ import net.malevy.mazeserver.domain.Cell;
 import net.malevy.mazeserver.domain.Maze;
 import net.malevy.mazeserver.http.ResponseFactory;
 import net.malevy.mazeserver.http.dtos.MazeDto;
+import net.malevy.mazeserver.notifications.Publisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -16,9 +18,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class MazesController {
 
     final private MazeRepository mazeRepository;
+    private final Publisher publisher;
 
-    public MazesController(MazeRepository mazeRepository) {
+    public MazesController(MazeRepository mazeRepository, Publisher publisher) {
         this.mazeRepository = mazeRepository;
+        this.publisher = publisher;
     }
 
     @GetMapping
@@ -46,8 +50,15 @@ public class MazesController {
         }
 
         Cell cell = maze.getCellById(cellid);
-        return ResponseFactory.ForCell(mazeid, cell, uriBuilder);
+        MazeDto dto = ResponseFactory.ForCell(mazeid, cell, uriBuilder);
+        return dto;
+    }
 
+    @GetMapping("/{mazeid}/notifications")
+    public SseEmitter getNotificationsForMaze(@PathVariable String mazeid) {
+
+        // register the path
+        return this.publisher.register("/mazes/"+mazeid);
     }
 
 }

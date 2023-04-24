@@ -3,7 +3,7 @@ package net.malevy.mazeserver.http.dtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MazeDto {
+public class MazeDto extends LinkCollection {
     private CollectionDto collectionDto;
     private ItemDto itemDto;
     private CellDto cellDto;

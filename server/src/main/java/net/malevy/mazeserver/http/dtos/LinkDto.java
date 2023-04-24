@@ -1,7 +1,10 @@
 package net.malevy.mazeserver.http.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.net.URI;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class LinkDto {
     private final URI href;
     private final String rel;

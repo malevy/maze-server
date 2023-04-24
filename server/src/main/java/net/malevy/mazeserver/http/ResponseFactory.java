@@ -10,6 +10,8 @@ import java.net.URI;
 
 public abstract class ResponseFactory {
 
+    private static MazeDto mazeDto;
+
     public static MazeDto fromMazeList(Maze[] mazes, UriComponentsBuilder uriBuilder) {
         UriComponentsBuilder builderForRoot = uriBuilder.pathSegment("mazes");
         CollectionDto collectionDto = new CollectionDto(builderForRoot.build().toUri());
@@ -26,8 +28,13 @@ public abstract class ResponseFactory {
                 buildCellUrl(maze.getId(), entrance.getId(), uriBuilder),
                 Constants.Rels.START);
         final ItemDto item = new ItemDto(buildMazeUrl(maze.getId(), uriBuilder), mazeLink);
+        final LinkDto notificationLink = new LinkDto(
+                buildNotificationsUrl(maze.getId(), uriBuilder),
+                Constants.Rels.NOTIFICATIONS);
 
-        return new MazeDto(item);
+        final MazeDto mazeDto = new MazeDto(item);
+        mazeDto.addLink(notificationLink);
+        return mazeDto;
 
     }
 
@@ -50,6 +57,15 @@ public abstract class ResponseFactory {
         UriComponentsBuilder clonedUriBuilder = uriBuilder.cloneBuilder();
         clonedUriBuilder.replacePath("");
         return clonedUriBuilder.pathSegment(Constants.PathSegments.MAZES, id).build().toUri();
+    }
+
+    public static URI buildNotificationsUrl(String mazeId, UriComponentsBuilder uriBuilder) {
+        UriComponentsBuilder clonedUriBuilder = uriBuilder.cloneBuilder();
+        clonedUriBuilder.replacePath("");
+        return clonedUriBuilder
+                .pathSegment(Constants.PathSegments.MAZES, mazeId)
+                .pathSegment(Constants.PathSegments.NOTIFICATIONS)
+                .build().toUri();
     }
 
     public static URI buildCellUrl(String mazeId, String cellId, UriComponentsBuilder uriBuilder) {
