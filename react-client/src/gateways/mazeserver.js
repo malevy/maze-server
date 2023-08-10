@@ -6,11 +6,12 @@ const client = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  baseURL: BASE_URL,
 });
 
 /**
  * generic GET that unrolls the Axios response object
- *
+ * and expects the full URL to be passed in
  * @param {string} url
  * @returns {Object} object response from the server
  */
@@ -24,9 +25,7 @@ const endpoints = {
    * @returns {Link[]} array of link objects representing mazes
    */
   getMazeList() {
-    return client
-      .get("/mazes", { baseURL: BASE_URL })
-      .then((r) => r.data.collection.links);
+    return client.get("/mazes").then((r) => r.data.collection.links);
   },
 
   /**
