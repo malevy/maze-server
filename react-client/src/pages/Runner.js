@@ -17,6 +17,7 @@ function Runner() {
   }, []);
 
   async function go(direction) {
+    console.log(`moving ${direction}`);
     if (!direction) return;
     if (direction === "exit") {
       //TODO navigate to the exit escaped page
@@ -36,13 +37,16 @@ function Runner() {
   }
 
   function renderCell(cell, comingFrom) {
+    console.log({ cell });
     const possibleDirections = directions.getDirectionsComingFrom(comingFrom);
     const newPanels = [];
     for (let i = 0; i < 3; i++) {
       const link = cell.links.find((h) => h.rel === possibleDirections[i]);
       if (link) {
+        console.log(possibleDirections[i] + " is a door");
         newPanels.push({ img: doorImages[i], direction: link.rel });
       } else {
+        console.log(possibleDirections[i] + " is a wall");
         newPanels.push({ img: wallImages[i], direction: "" });
       }
     }
@@ -60,7 +64,6 @@ function Runner() {
   }
 
   function hasExit(cell) {
-    if (!cell?.links) return false;
     return cell.links.some((link) => link.rel === directions.EXIT);
   }
 
@@ -94,7 +97,7 @@ function Runner() {
           position="right"
           directionText={panelData[2]?.direction}
           img={panelData[2]?.img}
-          onClick={() => go(panelData[1]?.direction)}
+          onClick={() => go(panelData[2]?.direction)}
         />
       </div>
 
