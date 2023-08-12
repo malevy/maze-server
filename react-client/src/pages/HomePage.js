@@ -2,15 +2,16 @@ import React from "react";
 import "./HomePage.css";
 import mazeServer from "../gateways/mazeserver.js";
 import { useStore } from "../contexts/Store";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const [mazes, setMazes] = React.useState([]);
   const { storeNavigation } = useStore();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     async function loadMazes() {
       const allMazes = await mazeServer.getMazeList();
-      console.log(allMazes);
       setMazes(allMazes);
     }
     loadMazes();
@@ -20,6 +21,7 @@ function HomePage() {
     const mazeStart = await mazeServer.getStartUrl(maze.href);
     const startCell = await mazeServer.goToCell(mazeStart.href);
     storeNavigation(startCell, "south");
+    navigate("/runner");
   }
 
   function mazeToRow(maze) {

@@ -1,0 +1,10 @@
+article {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: fit-content;
+}
+
+#view {
+  display: flex;
+}

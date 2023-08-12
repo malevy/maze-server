@@ -1,0 +1,33 @@
+h4 {
+  height: 1rem;
+}
+
+.panel {
+  position: relative;
+}
+
+.sign {
+  position: absolute;
+  font-size: 1.5rem;
+  width: 6rem;
+  height: 2rem;
+  text-align: center;
+  background-color: aliceblue;
+}
+
+.panel.left .sign {
+  top: 10rem;
+  left: 8rem;
+  transform: perspective(500px) scaleZ(2) rotateY(45deg) rotateZ(10deg);
+}
+
+.panel.middle .sign {
+  top: 11rem;
+  left: 6rem;
+}
+
+.panel.right .sign {
+  top: 10.5rem;
+  left: 6rem;
+  transform: perspective(500px) scaleZ(2) rotateY(-45deg) rotateZ(-10deg);
+}
