@@ -4,12 +4,14 @@ import { useStore } from "../contexts/Store.js";
 import Panel from "../components/Panel.js";
 import mazeServer from "../gateways/mazeserver.js";
 import directions from "../services/Directions.js";
+import { useNavigate } from "react-router-dom";
 
 function Runner() {
   const [showBackButton, setShowBackButton] = React.useState(true);
   const [backDirection, setBackDirection] = React.useState("");
   const { storeNavigation, currentCell, from } = useStore();
   const [panelData, setPanelData] = React.useState([]);
+  const navigate = useNavigate();
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
@@ -20,7 +22,7 @@ function Runner() {
     console.log(`moving ${direction}`);
     if (!direction) return;
     if (direction === "exit") {
-      //TODO navigate to the exit escaped page
+      navigate("/escaped");
     }
 
     const link = currentCell.links.find((lnk) => lnk.rel === direction);

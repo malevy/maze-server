@@ -1,0 +1,16 @@
+
+article {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.message {
+    color: white;
+}
+
+#tsparticles {
+    position: fixed;
+    z-index: -1;
+  }
+
