@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 const StoreContext = React.createContext();
 
 export function StoreProvider({ children }) {
-  const [currentCell, setCurrentCell] = React.useState([]);
+  const [currentCell, setCurrentCell] = React.useState(null);
   const [from, setFrom] = React.useState("");
 
   /**

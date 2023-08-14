@@ -15,7 +15,13 @@ function Runner() {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   React.useEffect(() => {
-    render(currentCell, from);
+    // no currentCell means that we navigated to the runner page
+    // directly. most likely by refreshing the browser
+    if (!currentCell) {
+      navigate("/");
+    } else {
+      render(currentCell, from);
+    }
   }, []);
 
   async function go(direction) {
