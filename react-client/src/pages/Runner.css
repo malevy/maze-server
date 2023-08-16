@@ -7,4 +7,10 @@ article {
 
 #view {
   display: flex;
+  justify-content: center;
+}
+
+#loadingIndicator {
+  width: 6rem;
+  height: 6rem;
 }

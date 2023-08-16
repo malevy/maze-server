@@ -1,16 +1,18 @@
 import React from "react";
-import "./Runner.css";
+import { useNavigate } from "react-router-dom";
 import { useStore } from "../contexts/Store.js";
+import "./Runner.css";
 import Panel from "../components/Panel.js";
 import mazeServer from "../gateways/mazeserver.js";
 import directions from "../services/Directions.js";
-import { useNavigate } from "react-router-dom";
+import LoadingIndicator from "../components/LoadingIndicator.js";
 
 function Runner() {
   const [showBackButton, setShowBackButton] = React.useState(true);
   const [backDirection, setBackDirection] = React.useState("");
   const { storeNavigation, currentCell, from } = useStore();
   const [panelData, setPanelData] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -34,8 +36,10 @@ function Runner() {
     const link = currentCell.links.find((lnk) => lnk.rel === direction);
     if (!link) return;
 
+    setLoading(true);
     const nextCell = await mazeServer.goToCell(link.href);
     storeNavigation(nextCell, direction);
+    setLoading(false);
     render(nextCell, direction);
   }
 
@@ -85,6 +89,16 @@ function Runner() {
     require("../assets/front-wall-blank.jpg"),
     require("../assets/right-wall-blank.jpg"),
   ];
+
+  if (loading) {
+    return (
+      <article>
+        <div id="view">
+          <LoadingIndicator id="loadingIndicator" />
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article>

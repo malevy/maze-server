@@ -17,3 +17,8 @@
   padding: 0;
   color: aliceblue;
 }
+
+#loadingIndicator {
+  width: 6rem;
+  height: 6rem;
+}

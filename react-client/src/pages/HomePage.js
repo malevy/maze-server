@@ -3,9 +3,11 @@ import "./HomePage.css";
 import mazeServer from "../gateways/mazeserver.js";
 import { useStore } from "../contexts/Store";
 import { useNavigate } from "react-router-dom";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 function HomePage() {
   const [mazes, setMazes] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const { storeNavigation } = useStore();
   const navigate = useNavigate();
 
@@ -13,15 +15,19 @@ function HomePage() {
     async function loadMazes() {
       const allMazes = await mazeServer.getMazeList();
       setMazes(allMazes);
+      setLoading(false);
     }
+    setLoading(true);
     loadMazes();
   }, []);
 
   async function enterMaze(maze) {
+    setLoading(true);
     const mazeStart = await mazeServer.getStartUrl(maze.href);
     const startCell = await mazeServer.goToCell(mazeStart.href);
     storeNavigation(startCell, "south");
     navigate("/runner");
+    setLoading(false);
   }
 
   function mazeToRow(maze) {
@@ -36,8 +42,8 @@ function HomePage() {
     );
   }
 
-  return (
-    <div className="home">
+  const renderMazeList = () => {
+    return (
       <section className="maze-list">
         <table>
           <thead>
@@ -48,6 +54,13 @@ function HomePage() {
           <tbody>{mazes.map(mazeToRow)}</tbody>
         </table>
       </section>
+    );
+  };
+
+  return (
+    <div className="home">
+      {loading && <LoadingIndicator id="loadingIndicator" />}
+      {!loading && renderMazeList()}
     </div>
   );
 }
